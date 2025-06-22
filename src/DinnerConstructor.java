@@ -5,13 +5,10 @@ import java.util.Set;
 
 public class DinnerConstructor {
     private HashMap<String, ArrayList<String>> dishes = new HashMap<>();
-    Random random = new Random();
+    private Random random = new Random();
 
     public void addDish(String typeOfDish, String dish) {
-        if (!dishes.containsKey(typeOfDish)) {
-            dishes.put(typeOfDish, new ArrayList<>());
-        }
-        dishes.get(typeOfDish).add(dish);
+        dishes.computeIfAbsent(typeOfDish, k -> new ArrayList<>()).add(dish);
     }
 
     public ArrayList<String> makeCombo(ArrayList<String> typesOfDishes) {
@@ -25,9 +22,9 @@ public class DinnerConstructor {
 
     public void printDishes() {
         for (String type : dishes.keySet()) {
-            System.out.print("В категории " + type + " имеются следующие блюда: " + dishes.get(type));
+            System.out.print("В категории '" + type + "' имеются следующие блюда: " + dishes.get(type));
+            System.out.println();
         }
-        System.out.println();
     }
 
     public boolean hasType(String type) {

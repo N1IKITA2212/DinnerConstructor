@@ -11,29 +11,12 @@ public class Main {
         scanner.nextLine();
         while (cmd != 4) {
             if (cmd == 1) {
-                System.out.print("Введите тип блюда: ");
-                String type = scanner.nextLine();
-                System.out.print("Введите название блюда: ");
-                String dish = scanner.nextLine();
-                dinnerConstructor.addDish(type, dish);
+                addDish();
             } else if (cmd == 2) {
-                if (dinnerConstructor.isEmpty()) {
-                    System.out.println("Вы не ввели ни одного блюда");
-                    continue;
-                }
-                System.out.println("Начинаем создание комбинаций...");
-                System.out.print("Введите количество комбинаций: ");
-                int numberOfCombos = scanner.nextInt();
-                scanner.nextLine();
-                ArrayList<String> typesOfDishesForCombo = makeListOfTypes();
-                for (int i = 1; i <= numberOfCombos; i++) {
-                    System.out.println("Комбо " + i);
-                    System.out.println(dinnerConstructor.makeCombo(typesOfDishesForCombo));
-                }
+                makeCombo();
             } else if (cmd == 3) {
                 dinnerConstructor.printDishes();
-            }
-            else {
+            } else {
                 System.out.println("Такой команды нет, введите от 1 до 4");
             }
             printMenu();
@@ -69,5 +52,27 @@ public class Main {
         return typesOfDishesForCombo;
     }
 
+    public static void addDish() {
+        System.out.print("Введите тип блюда: ");
+        String type = scanner.nextLine();
+        System.out.print("Введите название блюда: ");
+        String dish = scanner.nextLine();
+        dinnerConstructor.addDish(type, dish);
+    }
 
+    public static void makeCombo() {
+        if (dinnerConstructor.isEmpty()) {
+            System.out.println("Вы не ввели ни одного блюда");
+            return;
+        }
+        System.out.println("Начинаем создание комбинаций...");
+        System.out.print("Введите количество комбинаций: ");
+        int numberOfCombos = scanner.nextInt();
+        scanner.nextLine();
+        ArrayList<String> typesOfDishesForCombo = makeListOfTypes();
+        for (int i = 1; i <= numberOfCombos; i++) {
+            System.out.println("Комбо " + i);
+            System.out.println(dinnerConstructor.makeCombo(typesOfDishesForCombo));
+        }
+    }
 }
